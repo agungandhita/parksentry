@@ -1,0 +1,15 @@
+/Users/mac/Documents/parksentry/ParkSentry.Application/bin/Debug/net8.0/ParkSentry.Application.deps.json
+/Users/mac/Documents/parksentry/ParkSentry.Application/bin/Debug/net8.0/ParkSentry.Application.dll
+/Users/mac/Documents/parksentry/ParkSentry.Application/bin/Debug/net8.0/ParkSentry.Application.pdb
+/Users/mac/Documents/parksentry/ParkSentry.Application/bin/Debug/net8.0/ParkSentry.Domain.dll
+/Users/mac/Documents/parksentry/ParkSentry.Application/bin/Debug/net8.0/ParkSentry.Domain.pdb
+/Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ParkSentry.Application.csproj.AssemblyReference.cache
+/Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ParkSentry.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ParkSentry.Application.AssemblyInfoInputs.cache
+/Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ParkSentry.Application.AssemblyInfo.cs
+/Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ParkSentry.Application.csproj.CoreCompileInputs.cache
+/Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ParkSent.C41E2F0F.Up2Date
+/Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ParkSentry.Application.dll
+/Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/refint/ParkSentry.Application.dll
+/Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ParkSentry.Application.pdb
+/Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ref/ParkSentry.Application.dll

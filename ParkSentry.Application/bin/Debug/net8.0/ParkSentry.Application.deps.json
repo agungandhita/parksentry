@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "ParkSentry.Application/1.0.0": {
+        "dependencies": {
+          "ParkSentry.Domain": "1.0.0"
+        },
+        "runtime": {
+          "ParkSentry.Application.dll": {}
+        }
+      },
+      "ParkSentry.Domain/1.0.0": {
+        "runtime": {
+          "ParkSentry.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ParkSentry.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ParkSentry.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

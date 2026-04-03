@@ -1,0 +1,11 @@
+/Users/mac/Documents/parksentry/ParkSentry.Domain/bin/Debug/net8.0/ParkSentry.Domain.deps.json
+/Users/mac/Documents/parksentry/ParkSentry.Domain/bin/Debug/net8.0/ParkSentry.Domain.dll
+/Users/mac/Documents/parksentry/ParkSentry.Domain/bin/Debug/net8.0/ParkSentry.Domain.pdb
+/Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/ParkSentry.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/ParkSentry.Domain.AssemblyInfoInputs.cache
+/Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/ParkSentry.Domain.AssemblyInfo.cs
+/Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/ParkSentry.Domain.csproj.CoreCompileInputs.cache
+/Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/ParkSentry.Domain.dll
+/Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/refint/ParkSentry.Domain.dll
+/Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/ParkSentry.Domain.pdb
+/Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/ref/ParkSentry.Domain.dll

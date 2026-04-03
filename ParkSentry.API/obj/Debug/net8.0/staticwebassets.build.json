@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "bvmr5WEFH66PI6uzhrGOdKdFxcEWcq9FyX8P+zJWoQw=",
+  "Source": "ParkSentry.API",
+  "BasePath": "_content/ParkSentry.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
