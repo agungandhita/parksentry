@@ -2,27 +2,25 @@
   <div>
     <div class="page-header">
       <div>
-        <h1 class="page-title">Tiket Pelanggaran</h1>
-        <p class="page-subtitle">Kelola semua tiket pelanggaran parkir</p>
+        <div class="page-title">Tiket Pelanggaran</div>
+        <div class="page-subtitle">Kelola semua tiket pelanggaran parkir</div>
       </div>
-      <button class="btn btn-primary" @click="showModal = true">+ Tiket Baru</button>
+      <button v-if="canCreate" class="btn btn-primary" @click="showModal = true">+ Tiket Baru</button>
     </div>
 
     <div class="card">
       <div class="toolbar">
         <div class="search-wrap">
           <span class="search-icon">🔍</span>
-          <input v-model="search" class="search-input" placeholder="Cari nomor tiket, plat..." />
+          <input v-model="search" class="search-input" placeholder="Cari no. tiket, plat..." />
         </div>
-        <div style="display:flex;gap:8px">
-          <select v-model="filterStatus" class="form-select" style="width:150px">
-            <option value="">Semua Status</option>
-            <option value="Unpaid">Unpaid</option>
-            <option value="Paid">Paid</option>
-            <option value="Appealing">Appealing</option>
-            <option value="Cancelled">Cancelled</option>
-          </select>
-        </div>
+        <select v-model="filterStatus" class="form-select" style="width:140px">
+          <option value="">Semua Status</option>
+          <option value="unpaid">Unpaid</option>
+          <option value="paid">Paid</option>
+          <option value="appealing">Appealing</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
       </div>
 
       <div class="table-wrap">
@@ -30,7 +28,7 @@
           <thead>
             <tr>
               <th>No. Tiket</th>
-              <th>Plat Nomor</th>
+              <th>Plat</th>
               <th>Pelanggaran</th>
               <th>Petugas</th>
               <th>Zona</th>
@@ -41,34 +39,31 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-if="loading"><td colspan="9" class="loading-row"><span class="spinner"></span></td></tr>
-            <tr v-else-if="filtered.length === 0"><td colspan="9"><div class="empty-state"><div class="empty-icon">🎫</div><p>Tidak ada tiket ditemukan</p></div></td></tr>
+            <tr v-if="loading">
+              <td colspan="9" class="loading-row"><span class="spinner"></span> Memuat...</td>
+            </tr>
+            <tr v-else-if="filtered.length === 0">
+              <td colspan="9"><div class="empty-state"><div class="empty-icon">🎫</div><p>Tidak ada tiket</p></div></td>
+            </tr>
             <tr v-for="t in filtered" :key="t.id">
               <td>
-                <RouterLink :to="`/tickets/${t.id}`" style="color:var(--accent-primary);font-weight:700;font-size:13px">
-                  {{ t.ticketNo }}
-                </RouterLink>
+                <RouterLink :to="`/tickets/${t.id}`" style="color:var(--accent);font-weight:600">{{ t.ticketNo }}</RouterLink>
+              </td>
+              <td><strong>{{ t.vehicle?.plateNumber }}</strong></td>
+              <td>{{ t.violationType?.name }}</td>
+              <td style="color:var(--text-muted)">{{ t.officer?.fullName }}</td>
+              <td style="color:var(--text-muted)">{{ t.zone?.zoneName }}</td>
+              <td style="color:var(--accent-red);font-weight:600">{{ formatRp(t.fineAmount) }}</td>
+              <td :style="isOverdue(t) ? 'color:var(--accent-red)' : ''">
+                {{ formatDate(t.dueDate) }}<span v-if="isOverdue(t)"> ⚠️</span>
               </td>
               <td>
-                <span style="font-weight:700;background:rgba(99,102,241,0.1);padding:3px 8px;border-radius:6px;font-size:13px">
-                  {{ t.vehicle?.plateNumber }}
-                </span>
+                <span class="badge" :class="`badge-${t.status?.toLowerCase()}`">{{ t.status }}</span>
               </td>
               <td>
-                <div style="font-size:13px;font-weight:600">{{ t.violationType?.name }}</div>
-              </td>
-              <td style="font-size:13px;color:var(--text-secondary)">{{ t.officer?.fullName }}</td>
-              <td style="font-size:13px;color:var(--text-secondary)">{{ t.zone?.zoneName }}</td>
-              <td style="font-weight:700;color:var(--accent-warning)">{{ formatRp(t.fineAmount) }}</td>
-              <td style="font-size:12px" :style="isOverdue(t) ? 'color:var(--accent-danger)' : 'color:var(--text-secondary)'">
-                {{ formatDate(t.dueDate) }}
-                <span v-if="isOverdue(t)" style="font-size:10px;font-weight:700"> ⚠️</span>
-              </td>
-              <td><span class="badge" :class="`badge-${t.status?.toLowerCase()}`">{{ t.status }}</span></td>
-              <td>
-                <div style="display:flex;gap:6px">
+                <div style="display:flex;gap:4px">
                   <RouterLink :to="`/tickets/${t.id}`" class="btn btn-ghost btn-sm">Detail</RouterLink>
-                  <button v-if="t.status === 'Unpaid'" class="btn btn-success btn-sm" @click="payTicket(t)">Bayar</button>
+                  <button v-if="t.status?.toLowerCase() === 'unpaid' && canPay" class="btn btn-primary btn-sm" @click="payTicket(t)">Bayar</button>
                 </div>
               </td>
             </tr>
@@ -77,39 +72,39 @@
       </div>
     </div>
 
-    <!-- Modal Tambah Tiket -->
+    <!-- Modal Buat Tiket -->
     <Transition name="fade">
       <div v-if="showModal" class="modal-overlay" @click.self="showModal = false">
         <div class="modal">
           <div class="modal-header">
-            <h3 class="modal-title">🎫 Tambah Tiket Pelanggaran</h3>
+            <div class="modal-title">Tambah Tiket Pelanggaran</div>
             <button class="modal-close" @click="showModal = false">✕</button>
           </div>
           <div class="modal-body">
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">ID Petugas *</label>
-                <input v-model.number="form.officerId" type="number" class="form-input" placeholder="contoh: 1" />
+                <input v-model.number="form.officerId" type="number" class="form-input" placeholder="1" />
               </div>
               <div class="form-group">
                 <label class="form-label">ID Kendaraan *</label>
-                <input v-model.number="form.vehicleId" type="number" class="form-input" placeholder="contoh: 1" />
+                <input v-model.number="form.vehicleId" type="number" class="form-input" placeholder="1" />
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Jenis Pelanggaran *</label>
                 <select v-model.number="form.violationTypeId" class="form-select">
-                  <option value="">Pilih jenis...</option>
+                  <option value="">Pilih...</option>
                   <option v-for="vt in violationTypes" :key="vt.id" :value="vt.id">
-                    {{ vt.code }} — {{ vt.name }} ({{ formatRp(vt.fineAmount) }})
+                    {{ vt.code }} — {{ vt.name }}
                   </option>
                 </select>
               </div>
               <div class="form-group">
                 <label class="form-label">Zona Parkir *</label>
                 <select v-model.number="form.zoneId" class="form-select">
-                  <option value="">Pilih zona...</option>
+                  <option value="">Pilih...</option>
                   <option v-for="z in zones" :key="z.id" :value="z.id">{{ z.zoneCode }} — {{ z.zoneName }}</option>
                 </select>
               </div>
@@ -126,7 +121,7 @@
             </div>
             <div class="form-group">
               <label class="form-label">Detail Lokasi</label>
-              <input v-model="form.locationDetail" class="form-input" placeholder="Jalan, area parkir, dll..." />
+              <input v-model="form.locationDetail" class="form-input" placeholder="Jalan, area parkir..." />
             </div>
             <div class="form-group">
               <label class="form-label">Catatan</label>
@@ -136,7 +131,7 @@
           <div class="modal-footer">
             <button class="btn btn-ghost" @click="showModal = false">Batal</button>
             <button class="btn btn-primary" @click="submitTicket" :disabled="saving">
-              {{ saving ? 'Menyimpan...' : '+ Simpan Tiket' }}
+              {{ saving ? 'Menyimpan...' : 'Simpan Tiket' }}
             </button>
           </div>
         </div>
@@ -148,17 +143,24 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { ticketApi, zoneApi, violationTypeApi } from '../api'
+import { useAuthStore } from '../stores/auth'
 import { useToastStore } from '../stores/toast'
 
+const authStore = useAuthStore()
 const toast = useToastStore()
-const tickets = ref([])
-const zones = ref([])
+const role = computed(() => authStore.user?.role)
+
+const canCreate = computed(() => role.value === 'admin' || role.value === 'officer')
+const canPay    = computed(() => role.value === 'admin' || role.value === 'officer')
+
+const tickets        = ref([])
+const zones          = ref([])
 const violationTypes = ref([])
-const loading = ref(true)
-const showModal = ref(false)
-const saving = ref(false)
-const search = ref('')
-const filterStatus = ref('')
+const loading        = ref(true)
+const showModal      = ref(false)
+const saving         = ref(false)
+const search         = ref('')
+const filterStatus   = ref('')
 
 const form = ref({
   officerId: '', vehicleId: '', violationTypeId: '',
@@ -173,7 +175,7 @@ const filtered = computed(() =>
       t.ticketNo?.toLowerCase().includes(s) ||
       t.vehicle?.plateNumber?.toLowerCase().includes(s) ||
       t.violationType?.name?.toLowerCase().includes(s)
-    const matchStatus = !filterStatus.value || t.status === filterStatus.value
+    const matchStatus = !filterStatus.value || t.status?.toLowerCase() === filterStatus.value
     return matchSearch && matchStatus
   })
 )
@@ -187,7 +189,7 @@ function formatDate(d) {
   return new Date(d).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })
 }
 function isOverdue(t) {
-  return t.status === 'Unpaid' && new Date(t.dueDate) < new Date()
+  return t.status?.toLowerCase() === 'unpaid' && new Date(t.dueDate) < new Date()
 }
 
 async function payTicket(t) {
@@ -195,7 +197,7 @@ async function payTicket(t) {
   try {
     await ticketApi.markAsPaid(t.id)
     t.status = 'Paid'
-    toast.success(`Tiket ${t.ticketNo} berhasil dilunasi`)
+    toast.success(`Tiket ${t.ticketNo} lunas`)
   } catch {
     toast.error('Gagal memperbarui status')
   }
@@ -203,20 +205,17 @@ async function payTicket(t) {
 
 async function submitTicket() {
   if (!form.value.officerId || !form.value.vehicleId || !form.value.violationTypeId || !form.value.zoneId) {
-    toast.error('Harap isi semua field wajib')
+    toast.error('Isi semua field wajib')
     return
   }
   saving.value = true
   try {
-    await ticketApi.create({
-      ...form.value,
-      violationDate: new Date(form.value.violationDate).toISOString()
-    })
+    await ticketApi.create({ ...form.value, violationDate: new Date(form.value.violationDate).toISOString() })
     toast.success('Tiket berhasil dibuat!')
     showModal.value = false
     await loadData()
   } catch (e) {
-    toast.error('Gagal membuat tiket: ' + (e.response?.data?.title || e.message))
+    toast.error('Gagal: ' + (e.response?.data?.title || e.message))
   } finally {
     saving.value = false
   }
@@ -225,13 +224,9 @@ async function submitTicket() {
 async function loadData() {
   loading.value = true
   try {
-    const [tr, zr, vtr] = await Promise.all([
-      ticketApi.getAll(),
-      zoneApi.getAll(),
-      violationTypeApi.getAll()
-    ])
-    tickets.value = tr.data
-    zones.value = zr.data
+    const [tr, zr, vtr] = await Promise.all([ticketApi.getAll(), zoneApi.getAll(), violationTypeApi.getAll()])
+    tickets.value        = tr.data
+    zones.value          = zr.data
     violationTypes.value = vtr.data
   } finally {
     loading.value = false

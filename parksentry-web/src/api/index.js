@@ -5,6 +5,11 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' }
 })
 
+export const authApi = {
+  login:    (data) => api.post('/auth/login',    data),
+  register: (data) => api.post('/auth/register', data),
+}
+
 export const ticketApi = {
   getAll: (status) => api.get('/violationtickets', { params: status ? { status } : {} }),
   getById: (id) => api.get(`/violationtickets/${id}`),

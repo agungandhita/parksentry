@@ -115,3 +115,4 @@
 /Users/mac/Documents/parksentry/ParkSentry.API/obj/Debug/net8.0/ParkSentry.API.pdb
 /Users/mac/Documents/parksentry/ParkSentry.API/obj/Debug/net8.0/ParkSentry.API.genruntimeconfig.cache
 /Users/mac/Documents/parksentry/ParkSentry.API/obj/Debug/net8.0/ref/ParkSentry.API.dll
+/Users/mac/Documents/parksentry/ParkSentry.API/obj/Debug/net8.0/ParkSentry.API.sourcelink.json

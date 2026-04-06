@@ -7,6 +7,11 @@ const routes = [
     component: () => import('../views/LoginView.vue'),
     meta: { title: 'Login', public: true }
   },
+  {
+    path: '/register',
+    component: () => import('../views/RegisterView.vue'),
+    meta: { title: 'Daftar Akun', public: true }
+  },
   { path: '/', redirect: '/dashboard' },
   {
     path: '/dashboard',
@@ -50,7 +55,7 @@ router.beforeEach((to) => {
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
     return { path: '/login' }
   }
-  if (to.path === '/login' && authStore.isLoggedIn) {
+  if ((to.path === '/login' || to.path === '/register') && authStore.isLoggedIn) {
     return { path: '/dashboard' }
   }
 })

@@ -9,3 +9,4 @@
 /Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/refint/ParkSentry.Domain.dll
 /Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/ParkSentry.Domain.pdb
 /Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/ref/ParkSentry.Domain.dll
+/Users/mac/Documents/parksentry/ParkSentry.Domain/obj/Debug/net8.0/ParkSentry.Domain.sourcelink.json

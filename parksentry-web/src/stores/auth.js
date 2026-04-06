@@ -1,57 +1,54 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import api from '../api/index'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref(JSON.parse(localStorage.getItem('ps_user') || 'null'))
+  const user  = ref(JSON.parse(localStorage.getItem('ps_user')  || 'null'))
   const token = ref(localStorage.getItem('ps_token') || null)
 
-  const isLoggedIn = computed(() => !!token.value && !!user.value)
-  const isAdmin = computed(() => user.value?.role === 'Admin')
-  const isOfficer = computed(() => user.value?.role === 'Officer')
+  const isLoggedIn = computed(() => !!user.value)
+  const isAdmin    = computed(() => user.value?.role === 'admin')
+  const isOfficer  = computed(() => user.value?.role === 'officer')
+  const isOwner    = computed(() => user.value?.role === 'owner')
 
-  // Simulasi login (ganti dengan API call nyata saat backend auth sudah siap)
-  async function login(username, password, role) {
-    // Mock users — ganti ini dengan fetch ke /api/auth/login
-    const mockUsers = {
-      Admin: [
-        { username: 'admin', password: 'admin123', name: 'Super Admin', email: 'admin@parksentry.id', avatar: '👑' },
-      ],
-      Officer: [
-        { username: 'officer1', password: 'officer123', name: 'Budi Santoso', email: 'budi@parksentry.id', avatar: '👮' },
-        { username: 'officer2', password: 'officer123', name: 'Siti Rahma', email: 'siti@parksentry.id', avatar: '👮' },
-      ],
-    }
+  // ── Login ─────────────────────────────────────────────────────
+  async function login(username, password) {
+    const res = await api.post('/auth/login', { username, password })
+    const userData = res.data
 
-    const found = mockUsers[role]?.find(
-      (u) => u.username === username && u.password === password
-    )
+    // Generate a simple client-side token (replace with real JWT when backend provides)
+    const mockToken = btoa(`${userData.username}:${userData.role}:${Date.now()}`)
 
-    if (!found) throw new Error('Username atau password salah')
-
-    const userData = {
-      id: Math.random().toString(36).slice(2),
-      username: found.username,
-      name: found.name,
-      email: found.email,
-      avatar: found.avatar,
-      role,
-    }
-    const mockToken = btoa(`${username}:${role}:${Date.now()}`)
-
-    user.value = userData
+    user.value  = userData
     token.value = mockToken
-    localStorage.setItem('ps_user', JSON.stringify(userData))
+    localStorage.setItem('ps_user',  JSON.stringify(userData))
     localStorage.setItem('ps_token', mockToken)
 
     return userData
   }
 
+  // ── Register ──────────────────────────────────────────────────
+  async function register({ fullName, username, password, email, phone, role, idCardNo, address }) {
+    const res = await api.post('/auth/register', {
+      fullName,
+      username,
+      password,
+      email,
+      phone,
+      role,
+      idCardNo,
+      address,
+    })
+    return res.data
+  }
+
+  // ── Logout ────────────────────────────────────────────────────
   function logout() {
-    user.value = null
+    user.value  = null
     token.value = null
     localStorage.removeItem('ps_user')
     localStorage.removeItem('ps_token')
   }
 
-  return { user, token, isLoggedIn, isAdmin, isOfficer, login, logout }
+  return { user, token, isLoggedIn, isAdmin, isOfficer, isOwner, login, logout, register }
 })

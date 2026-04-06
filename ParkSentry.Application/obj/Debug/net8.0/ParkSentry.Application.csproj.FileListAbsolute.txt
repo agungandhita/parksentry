@@ -13,3 +13,4 @@
 /Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/refint/ParkSentry.Application.dll
 /Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ParkSentry.Application.pdb
 /Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ref/ParkSentry.Application.dll
+/Users/mac/Documents/parksentry/ParkSentry.Application/obj/Debug/net8.0/ParkSentry.Application.sourcelink.json

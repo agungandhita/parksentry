@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ParkSentry.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f1df1029ee98d14717e338ae97c80c78b8f90db7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a5207db1b14a82703115c98fc1075dc8d75c2277")]
 [assembly: System.Reflection.AssemblyProductAttribute("ParkSentry.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ParkSentry.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

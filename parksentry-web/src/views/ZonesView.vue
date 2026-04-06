@@ -15,10 +15,10 @@
             <tr v-if="loading"><td colspan="6" class="loading-row"><span class="spinner"></span></td></tr>
             <tr v-else-if="zones.length === 0"><td colspan="6"><div class="empty-state"><div class="empty-icon">📍</div><p>Belum ada zona parkir</p></div></td></tr>
             <tr v-for="z in zones" :key="z.id">
-              <td><span style="font-weight:800;color:var(--accent-primary)">{{ z.zoneCode }}</span></td>
-              <td style="font-weight:600">{{ z.zoneName }}</td>
-              <td style="font-size:13px;color:var(--text-secondary)">{{ z.address || '—' }}</td>
-              <td style="font-size:13px;color:var(--text-secondary)">{{ z.city || '—' }}</td>
+              <td><strong style="color:var(--accent)">{{ z.zoneCode }}</strong></td>
+              <td>{{ z.zoneName }}</td>
+              <td style="color:var(--text-muted)">{{ z.address || '—' }}</td>
+              <td style="color:var(--text-muted)">{{ z.city || '—' }}</td>
               <td><span class="badge" :class="z.isActive ? 'badge-paid' : 'badge-cancelled'">{{ z.isActive ? 'Aktif' : 'Nonaktif' }}</span></td>
               <td><button class="btn btn-danger btn-sm" @click="deleteZone(z)">Nonaktifkan</button></td>
             </tr>

@@ -15,10 +15,10 @@
             <tr v-if="loading"><td colspan="5" class="loading-row"><span class="spinner"></span></td></tr>
             <tr v-else-if="types.length === 0"><td colspan="5"><div class="empty-state"><div class="empty-icon">⚠️</div><p>Belum ada jenis pelanggaran</p></div></td></tr>
             <tr v-for="t in types" :key="t.id">
-              <td><span style="font-weight:800;color:var(--accent-warning);font-size:13px">{{ t.code }}</span></td>
-              <td style="font-weight:600">{{ t.name }}</td>
-              <td style="font-size:13px;color:var(--text-secondary);max-width:200px">{{ t.description || '—' }}</td>
-              <td style="font-weight:800;font-size:16px;color:var(--accent-warning)">{{ formatRp(t.fineAmount) }}</td>
+              <td><strong>{{ t.code }}</strong></td>
+              <td>{{ t.name }}</td>
+              <td style="color:var(--text-muted)">{{ t.description || '—' }}</td>
+              <td style="font-weight:700;color:var(--accent-red)">{{ formatRp(t.fineAmount) }}</td>
               <td><button class="btn btn-danger btn-sm" @click="del(t)">Hapus</button></td>
             </tr>
           </tbody>

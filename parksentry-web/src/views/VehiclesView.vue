@@ -2,8 +2,8 @@
   <div>
     <div class="page-header">
       <div>
-        <h1 class="page-title">Data Kendaraan</h1>
-        <p class="page-subtitle">Semua kendaraan yang terdaftar</p>
+        <div class="page-title">Data Kendaraan</div>
+        <div class="page-subtitle">Semua kendaraan yang terdaftar</div>
       </div>
     </div>
     <div class="card">
@@ -17,15 +17,18 @@
         <table class="data-table">
           <thead><tr><th>Plat Nomor</th><th>Merek / Model</th><th>Warna</th><th>Tipe</th><th>Tahun</th><th>Pemilik</th></tr></thead>
           <tbody>
-            <tr v-if="loading"><td colspan="6" class="loading-row"><span class="spinner"></span></td></tr>
+            <tr v-if="loading"><td colspan="6" class="loading-row"><span class="spinner"></span> Memuat...</td></tr>
             <tr v-else-if="filtered.length === 0"><td colspan="6"><div class="empty-state"><div class="empty-icon">🚗</div><p>Tidak ada kendaraan</p></div></td></tr>
             <tr v-for="v in filtered" :key="v.id">
-              <td><span style="font-weight:800;background:rgba(99,102,241,0.1);padding:4px 10px;border-radius:6px;letter-spacing:1px">{{ v.plateNumber }}</span></td>
-              <td><div style="font-weight:600">{{ v.brand }}</div><div style="font-size:12px;color:var(--text-muted)">{{ v.model }}</div></td>
-              <td><span style="font-size:13px;color:var(--text-secondary)">{{ v.color }}</span></td>
-              <td><span class="badge" style="background:rgba(59,130,246,0.12);color:#60a5fa">{{ v.vehicleType }}</span></td>
-              <td style="color:var(--text-secondary)">{{ v.year || '—' }}</td>
-              <td><div style="font-size:13px;font-weight:600">{{ v.owner?.fullName }}</div><div style="font-size:11px;color:var(--text-muted)">{{ v.owner?.idCardNo }}</div></td>
+              <td><strong>{{ v.plateNumber }}</strong></td>
+              <td>{{ v.brand }} {{ v.model }}</td>
+              <td>{{ v.color }}</td>
+              <td><span class="badge badge-appealing">{{ v.vehicleType }}</span></td>
+              <td>{{ v.year || '—' }}</td>
+              <td>
+                <div>{{ v.owner?.fullName }}</div>
+                <div style="font-size:11px;color:var(--text-muted)">{{ v.owner?.idCardNo }}</div>
+              </td>
             </tr>
           </tbody>
         </table>

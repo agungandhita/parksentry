@@ -17,3 +17,4 @@
 /Users/mac/Documents/parksentry/ParkSentry.Infrastructure/obj/Debug/net8.0/ParkSentry.Infrastructure.pdb
 /Users/mac/Documents/parksentry/ParkSentry.Infrastructure/obj/Debug/net8.0/ParkSentry.Infrastructure.genruntimeconfig.cache
 /Users/mac/Documents/parksentry/ParkSentry.Infrastructure/obj/Debug/net8.0/ref/ParkSentry.Infrastructure.dll
+/Users/mac/Documents/parksentry/ParkSentry.Infrastructure/obj/Debug/net8.0/ParkSentry.Infrastructure.sourcelink.json
